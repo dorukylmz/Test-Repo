@@ -5,7 +5,14 @@ services:
     volumes:
       - .:/django
     ports:
-      - 8000:8000
+      - "8000:8000"
+      
+    stdin_open: true
+    tty: true
+    
+
     image: hukukrobotu_backend
+    
+    
+
     container_name: Hukukrobotu_Backend
-    command: python3 manage.py runserver 0.0.0.0:8000
