@@ -1,0 +1,28 @@
+<VirtualHost *:80>
+	ServerAdmin admin@hukukrobotu.localhost
+	ServerName hukukrobotu.localhost
+	ServerAlias www.hukukrobotu.localhost
+	DocumentRoot /django
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+	Alias /static /django/static
+	<Directory /django/static>
+		Require all granted
+	</Directory>
+
+	Alias /static /django/media
+	<Directory /django/media>
+		Require all granted
+	</Directory>
+
+	<Directory /django/hukukrobotu>
+		<Files wsgi.py>
+			Require all granted
+		</Files>
+	</Directory>
+
+	WSGIDaemonProcess django_project python-path=/django python-home=/django/env
+	WSGIProcessGroup django_project
+	WSGIScriptAlias / /django/hukukrobotu/wsgi.py
+</VirtualHost>
